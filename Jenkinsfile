@@ -69,7 +69,15 @@ pipeline{
                 sh 'docker ps -a'
             }
         }
-
-  }
+        stage('Push the image to Docker Hub') {
+            steps {
+                sh 'docker tag abctechnologies:$BUILD_NUMBER greatengineer/abctechnologies:$BUILD_NUMBER'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD'
+                    sh 'docker push greatengineer/abctechnologies:$BUILD_NUMBER'
+                }
+            }
+        }
+    }
     
 }
