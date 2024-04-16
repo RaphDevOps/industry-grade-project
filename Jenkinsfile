@@ -59,18 +59,17 @@ pipeline{
         }
         stage('Build the image') {
             steps {
-                sh 'cp /tmp/jenkinsdir/workspace/Industry-grade-project2/target/ABCtechnologies-1.0.war .'
-                sh 'docker build -t addressbook:$BUILD_NUMBER .'
+                sh 'cp /var/lib/jenkins/workspace/CICDPipeline/target/ABCtechnologies-1.0.war .'
+                sh 'docker build -t ABCtechnologies:$BUILD_NUMBER .'
             }
         }
         stage('Run the application') {
             steps {
-                sh 'docker run -d -P addressbook:$BUILD_NUMBER'
+                sh 'docker run -d -P ABCtechnologies:$BUILD_NUMBER'
                 sh 'docker ps -a'
             }
         }
 
-        
-    }
+  }
     
-   }
+}
