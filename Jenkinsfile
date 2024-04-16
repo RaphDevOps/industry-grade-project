@@ -59,7 +59,7 @@ pipeline{
         }
         stage('Build the image') {
             steps {
-                sh 'cp /var/lib/jenkins/workspace/CICDPipeline/target/ABCtechnologies-1.0.war .'
+                sh 'cp /tmp/jenkinsdir/workspace/Industry-grade-project2/target/ABCtechnologies-1.0.war .'
                 sh 'docker build -t ABCtechnologies:$BUILD_NUMBER .'
             }
         }
